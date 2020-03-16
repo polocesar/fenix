@@ -34,7 +34,7 @@ module.exports = {
       host: '127.0.0.1',
       port: '5432',
       user: 'postgres',
-      password: 'postgres',
+      password: Env.get('DB_PASSWORD', 'postgres'),
       database: Env.get('DB_DATABASE', 'adonis')
     }
   }
