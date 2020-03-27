@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adonis & Vue App</title>
+    <script>
+        window['app'] = {
+            csrf_token: '{{ csrfToken }}',
+        };
+    </script>
 </head>
 <body>
     <div id="app"></div>
-    {{ script('/js/main.js') }}
+    <script type="text/javascript" src="{{mix('/js/main.js')}}"></script>
 </body>
 </html>
