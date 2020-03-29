@@ -13,6 +13,8 @@ o [Vue.js](https://vuejs.org/).
 2. `npm run prod` - Compila os assets em produção.
 3. `npm run watch` - Mantem um listener para que em qualquer edição os assets sejam novamente compilados em modo dev.
 
+O template utilizado no front-end é o [SB Admin2](https://startbootstrap.com/themes/sb-admin-2/) que foi construído sobre o [Bootstrap 4](https://getbootstrap.com/).
+
 #### Back-end
 1. `adonis serve --dev` - Inicia o servidor do back-end em modo de desenvolvimento.
 

@@ -14,7 +14,9 @@ let mix = require('laravel-mix');
 //mix.js('src/app.js', 'dist/').sass('src/app.scss', 'dist/');
 
 mix.setPublicPath('public')
-.js('resources/assets/js/main.js', 'public/js').version();
+.js('resources/assets/js/main.js', 'public/js')
+.sass('resources/assets/scss/main.scss', 'public/css')
+.version();
 
 
 mix.webpackConfig({
