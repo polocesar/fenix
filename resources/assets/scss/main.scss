@@ -1,14 +1,34 @@
 @import '~startbootstrap-sb-admin-2/css/sb-admin-2.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
+$orange-color: #faa61c;
+$orange-outline-color: #E09419;
 
 .btn-orange {
     color: #fff;
-    background-color: #faa61c;
-    border-color: #E09419;
+    background-color: $orange-color;
+    border-color: $orange-outline-color;
 }
 
 .btn-orange:hover {
     color: #fff;
-    background-color: #E09419;
-    border-color: #faa61c;
+    background-color: $orange-color;
+    border-color: $orange-outline-color;
+}
+
+.border-top-orange {
+    border-top: 0.3rem solid $orange-color !important;
+}
+
+.border-left-orange {
+    border-left: 0.3rem solid $orange-color !important;
+}
+
+.text-orange {
+    color: $orange-color
+}
+
+.card-header-orange {
+    background-color: $orange-color;
+    border-bottom: 1px solid $orange-outline-color;
 }

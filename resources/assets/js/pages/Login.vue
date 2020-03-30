@@ -19,7 +19,7 @@
                                             <input type="password" class="form-control form-control-user" id="password" placeholder="Senha">
                                         </div>
                                         <small id="error" class="form-text ml-1 mb-2 -mt-3 text-danger">Email ou senha incorreto.</small>
-                                        <button type="submit" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
+                                        <button type="button" @click="redirect()" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
                                     </form>
                                 </div>
                             </div>
@@ -34,6 +34,11 @@
 <script>
 export default {
     name: 'Login',
+    methods: {
+        redirect () {
+            this.$router.push('Dashboard'); 
+        }
+    }
 }
 </script>
 
