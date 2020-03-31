@@ -32,3 +32,16 @@ $orange-outline-color: #E09419;
     background-color: $orange-color;
     border-bottom: 1px solid $orange-outline-color;
 }
+
+div.container-fluid {
+    padding-top: 5.875rem;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item.router-link-active .nav-link {
+    font-weight: bold;
+    color: $orange-color;
+}
+
+li.nav-item.router-link-active {
+    border-bottom: 2px solid $orange-color;
+}

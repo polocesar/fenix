@@ -20,20 +20,10 @@ class AuthController {
     async login ({ request, response, auth }) {
         try {
             const { email, password } = request.all();
-            const authResponse = await auth.attempt(email, password);
-            const user = await User.findBy('email', email);
-            if(user) {
-                await Token.create({
-                    user_id: user.$attributes.id,
-                    token: authResponse.token,
-                    type: authResponse.type,
-                    is_revoked: false
-                });
-            }
-            return authResponse; 
+            return await auth.withRefreshToken().attempt(email, password);
         } catch (e) {
             return response.status(401).json({
-                message: 'Login ou senha inválido.'
+                message: 'Login ou senha inválido.',
             });
         }
     }

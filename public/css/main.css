@@ -15577,3 +15577,16 @@ readers do not read off random characters that represent icons */
   border-bottom: 1px solid #E09419;
 }
 
+div.container-fluid {
+  padding-top: 5.875rem;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item.router-link-active .nav-link {
+  font-weight: bold;
+  color: #faa61c;
+}
+
+li.nav-item.router-link-active {
+  border-bottom: 2px solid #faa61c;
+}
+

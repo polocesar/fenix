@@ -18,7 +18,7 @@
                                         <div class="form-group">
                                             <input type="password" v-model="password" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="password" placeholder="Senha" required>
                                         </div>
-                                        <small id="error" class="form-text ml-1 mb-3 -mt-3 text-danger" v-show="error">{{error}}</small>
+                                        <small id="error" class="form-text ml-1 mb-3 -mt-2 text-danger" v-show="error">{{error}}</small>
                                         <button type="submit" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
                                     </form>
                                 </div>
@@ -51,7 +51,7 @@ export default {
                     email: this.email,
                     password: this.password
                 });
-                this.$router.push('Dashboard');
+                this.$router.push('dashboard');
             } catch ({ response: { data: { message } } }) {
                 this.error = message;
             }
@@ -68,7 +68,7 @@ export default {
         font-size: 1rem;
         border-radius: .4rem;
     }
-    .-mt-3 {
-        margin-top: -1rem;
+    .-mt-2 {
+        margin-top: -.5rem;
     }
 </style>
