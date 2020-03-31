@@ -17,6 +17,8 @@
 const Route = use('Route')
 
 //Route.on('/').render('welcome');
-
+Route.group(() => {
+    Route.post('login', 'AuthController.login');
+}).prefix('api');
 
 Route.any('*', ({view}) =>  view.render('app'))

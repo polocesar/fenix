@@ -11,15 +11,15 @@
                                     <div class="text-center">
                                         <img src="/images/laura.png" class="mb-4">
                                     </div>
-                                    <form class="user">
+                                    <form class="user" @submit.prevent="onSubmit()">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user is-invalid" id="email" placeholder="E-mail">
+                                            <input type="email" v-model="email" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="email" placeholder="E-mail" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="password" placeholder="Senha">
+                                            <input type="password" v-model="password" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="password" placeholder="Senha" required>
                                         </div>
-                                        <small id="error" class="form-text ml-1 mb-2 -mt-3 text-danger">Email ou senha incorreto.</small>
-                                        <button type="button" @click="redirect()" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
+                                        <small id="error" class="form-text ml-1 mb-3 -mt-3 text-danger" v-show="error">{{error}}</small>
+                                        <button type="submit" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
                                     </form>
                                 </div>
                             </div>
@@ -32,25 +32,43 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'Login',
+    data () {
+        return {
+            email: null,
+            password: null,
+            error: null,
+        }
+    },
     methods: {
-        redirect () {
-            this.$router.push('Dashboard'); 
+        async onSubmit () {
+            this.error = null;
+            try {
+                const res = await axios.post('/api/login', {
+                    email: this.email,
+                    password: this.password
+                });
+                this.$router.push('Dashboard');
+            } catch ({ response: { data: { message } } }) {
+                this.error = message;
+            }
         }
     }
 }
 </script>
 
 <style scoped>
-form.user .form-control-user { 
-    border-radius: .4rem;
-}
-form.user .btn-user {
-    font-size: 1rem;
-    border-radius: .4rem;
-}
-.-mt-3 {
-    margin-top: -1rem;
-}
+    form.user .form-control-user { 
+        border-radius: .4rem;
+    }
+    form.user .btn-user {
+        font-size: 1rem;
+        border-radius: .4rem;
+    }
+    .-mt-3 {
+        margin-top: -1rem;
+    }
 </style>

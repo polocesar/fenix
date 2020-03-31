@@ -17,19 +17,25 @@ class AuthController {
      * @param {Request} ctx.request
      * @param {Response} ctx.response
     */
-    async login ({ request, response }) {
-        const { email, password } = request.all();
-        const authResponse = await auth.attempt(email, password)
-        const user = await User.findBy('email', email);
-        if(user) {
-            await Token.create({
-                user_id: user.$attributes.id,
-                token: authResponse.token,
-                type: authResponse.type,
-                is_revoked: false
+    async login ({ request, response, auth }) {
+        try {
+            const { email, password } = request.all();
+            const authResponse = await auth.attempt(email, password);
+            const user = await User.findBy('email', email);
+            if(user) {
+                await Token.create({
+                    user_id: user.$attributes.id,
+                    token: authResponse.token,
+                    type: authResponse.type,
+                    is_revoked: false
+                });
+            }
+            return authResponse; 
+        } catch (e) {
+            return response.status(401).json({
+                message: 'Login ou senha inválido.'
             });
         }
-        return authResponse; 
     }
 }
 

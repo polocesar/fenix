@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
+    "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "form-backend-validation": "^2.3.9",
     "laravel-mix": "^5.0.4",
