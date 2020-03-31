@@ -27,7 +27,7 @@
                     </li> -->
                 </ul>
             </div>
-            <a class="btn btn-outline-default ml-auto" href="#" title="sair"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+            <a class="btn btn-outline-default ml-auto" href="javascript:void(0)" @click="logout()" title="sair"><i class="fas fa-sign-out-alt fa-2x"></i></a>
         </nav>
         <div class="container-fluid">
             <transition name="fade" mode="out-in">
@@ -46,20 +46,12 @@
 
 <script>
 export default {
-  name: 'Template'
+  name: 'Template',
+  methods: {
+      logout () {
+          localStorage.clear();
+          this.$router.push('login');
+      }
+  }
 }
 </script>
-
-<style scoped>
-    .fade-enter-active,
-    .fade-leave-active {
-        transition-duration: 0.3s;
-        transition-property: opacity;
-        transition-timing-function: ease;
-    }
-
-    .fade-enter,
-    .fade-leave-active {
-        opacity: 0
-    }
-</style>

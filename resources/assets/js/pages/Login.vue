@@ -47,10 +47,11 @@ export default {
         async onSubmit () {
             this.error = null;
             try {
-                const res = await axios.post('/api/login', {
+                const { data: { token } } = await axios.post('/api/login', {
                     email: this.email,
                     password: this.password
                 });
+                localStorage.setItem('token', token);
                 this.$router.push('dashboard');
             } catch ({ response: { data: { message } } }) {
                 this.error = message;

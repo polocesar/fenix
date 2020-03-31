@@ -45,3 +45,15 @@ div.container-fluid {
 li.nav-item.router-link-active {
     border-bottom: 2px solid $orange-color;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+    transition-duration: .15s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0
+}
