@@ -9,9 +9,9 @@
                     <router-link to="/dashboard" tag="li" class="nav-item">
                         <a class="nav-link">Dashboard</a>
                     </router-link>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Usuários</a>
-                    </li>
+                    <router-link to="/usuario" tag="li" class="nav-item">
+                        <a class="nav-link">Usuários</a>
+                    </router-link>
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
                     </li>

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Template from '@/components/layout/Template'
 import Dashboard from '@/pages/Dashboard'
+import UsuarioIndex from '@/pages/usuarios/Index'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
                     path: 'dashboard',
                     name: 'Dashboard',
                     component: Dashboard
+                },
+                {
+                    path: 'usuario',
+                    name: 'usuario.index',
+                    component: UsuarioIndex
                 }
             ]
         },

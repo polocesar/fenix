@@ -19,7 +19,7 @@ class UserSeeder {
   async run () {
     await User.create({
       username: 'admin',
-      email: 'admin@admin.com.br',
+      email: 'admin@hotmail.com',
       password: 'admin',
     });
   }

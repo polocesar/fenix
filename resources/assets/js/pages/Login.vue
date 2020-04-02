@@ -13,13 +13,13 @@
                                     </div>
                                     <form class="user" @submit.prevent="onSubmit()">
                                         <div class="form-group">
-                                            <input type="email" v-model="email" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="email" placeholder="E-mail" required>
+                                            <input type="email" :disabled="loading" v-model="email" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="email" placeholder="E-mail" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" v-model="password" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="password" placeholder="Senha" required>
+                                            <input type="password" :disabled="loading" v-model="password" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="password" placeholder="Senha" required>
                                         </div>
                                         <small id="error" class="form-text ml-1 mb-3 -mt-2 text-danger" v-show="error">{{error}}</small>
-                                        <button type="submit" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
+                                        <button type="submit" :disabled="loading" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
                                     </form>
                                 </div>
                             </div>
@@ -41,11 +41,13 @@ export default {
             email: null,
             password: null,
             error: null,
+            loading: false
         }
     },
     methods: {
         async onSubmit () {
             this.error = null;
+            this.loading = true;
             try {
                 const { data: { token } } = await axios.post('/api/login', {
                     email: this.email,
@@ -56,6 +58,7 @@ export default {
             } catch ({ response: { data: { message } } }) {
                 this.error = message;
             }
+            this.loading = false;
         }
     }
 }

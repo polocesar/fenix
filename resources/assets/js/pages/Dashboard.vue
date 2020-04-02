@@ -67,8 +67,11 @@
         <div class="row">
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="card shadow mb-4">
+                    <div class="card-header pt-3 pb-2 d-flex flex-row align-items-center justify-content-between" style="background-color: white; border-bottom: none;">
+                        <h6 class="m-0 font-weight-bold text-orange text-center">Gráfico Mensal</h6>
+                    </div>
                     <div class="card-body">
-                        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                        <!-- <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6> -->
                         <!-- <line-chart :chart-data="datacollection"></line-chart> -->
                         <bar-chart></bar-chart>
                     </div>
@@ -86,8 +89,8 @@
 </template>
 
 <script>
-import LineChart from '../components/charts/LineChart.js'
-import BarChart from '../components/charts/BarChart.js'
+import LineChart from '@/components/charts/LineChart.js'
+import BarChart from '@/components/charts/BarChart.js'
 
 export default {
     components: {
