@@ -19,7 +19,7 @@
                                             <input type="password" :disabled="loading" v-model="password" class="form-control form-control-user" v-bind:class="{'is-invalid': error}" id="password" placeholder="Senha" required>
                                         </div>
                                         <small id="error" class="form-text ml-1 mb-3 -mt-2 text-danger" v-show="error">{{error}}</small>
-                                        <button type="submit" :disabled="loading" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
+                                        <button type="submit" id="submit_buttom_form" :disabled="loading" class="btn btn-orange btn-user btn-block font-weight-bold">Acessar</button>
                                     </form>
                                 </div>
                             </div>
