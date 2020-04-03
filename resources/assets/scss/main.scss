@@ -24,8 +24,16 @@ $orange-outline-color: #E09419;
     border-left: 0.3rem solid $orange-color !important;
 }
 
+.border-right-orange {
+    border-right: 0.3rem solid $orange-color !important;
+}
+
 .text-orange {
     color: $orange-color
+}
+
+.bg-orange {
+    background-color: $orange-color;
 }
 
 .card-header-orange {

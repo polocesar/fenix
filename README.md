@@ -26,3 +26,4 @@ O template utilizado no front-end é o [SB Admin2](https://startbootstrap.com/th
 2. [Instalação do VueJs](https://dev.to/michi/build-fullstack-javascript-apps-with-adonis-and-vue-3edc)
 3. [Vue.js](https://vuejs.org/)
 4. [SB Admin2](https://startbootstrap.com/themes/sb-admin-2/)
+5. [Indicadores UTI](http://www.cremeb.org.br/wp-content/uploads/2018/10/lsp_8f5fe1ee8405b1f27a8670100ae72312_151018-031155.pdf)

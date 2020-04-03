@@ -4,12 +4,12 @@ export default {
   extends: Bar,
   data: () => ({
     chartdata: {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril'],
+      labels: ['Janeiro', 'Fevereiro', 'Março'],
       datasets: [
         {
           label: 'Internações',
           backgroundColor: '#faa61c',
-          data: [40, 20, 30, 10, 5]
+          data: [12, 25, 43]
         }
       ]
     },
