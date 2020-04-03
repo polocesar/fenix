@@ -9,7 +9,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <img src="/images/laura.png" class="mb-4">
+                                        <img src="/images/laura.png" class="mb-4" style="max-width: 100%;">
                                     </div>
                                     <form class="user" @submit.prevent="onSubmit()">
                                         <div class="form-group">
