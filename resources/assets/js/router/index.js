@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Template from '@/components/layout/Template'
 import Dashboard from '@/pages/Dashboard'
+
 import UsuarioIndex from '@/pages/usuarios/Index'
+import UsuarioForm from '@/pages/usuarios/Form'
 
 Vue.use(Router)
 
@@ -34,6 +36,14 @@ export default new Router({
                     path: 'usuario',
                     name: 'usuario.index',
                     component: UsuarioIndex
+                },
+                {
+                    path: 'usuario/create',
+                    name: 'usuario.form',
+                    component: UsuarioForm,
+                    props: {
+                        form: 'create'
+                    }
                 }
             ]
         },

@@ -18,6 +18,17 @@ O template utilizado no front-end é o [SB Admin2](https://startbootstrap.com/th
 #### Back-end
 1. `adonis serve --dev` - Inicia o servidor do back-end em modo de desenvolvimento.
 
+## Como instalar o projeto?
+Tutorial de como instalar e executar o projeto.
+
+### Passos
+1. git clone.
+2. Executar `npm install` dentro do projeto para instalar os pacotes do mesmo.
+3. Copiar o arquivo `.env.exemple` para `.env` e configurar o mesmo para as suas configurações desejadas.
+4. Instalar o cli do adonis global executando `npm i -g @adonisjs/cli`.
+
+Para executar o servidor do back-end para executar dentro da pasta: `adonis serve --dev`.
+
 
 **Atenção:** Para miaores informações basta consultar a documentação de cada framework.
 

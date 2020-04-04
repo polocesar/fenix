@@ -31,7 +31,7 @@
             <ul class="navbar-nav ml-auto">
                 <div class="topbar-divider d-none d-sm-block"></div>
                 <li class="nav-item dropdown no-arrow" v-click-outside="hide" @keydown.esc="hide()">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" @click="toggle()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="userDropdown" @click.prevent="toggle()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuário</span> -->
                         <img class="img-profile rounded-circle" src="/images/user_2.png">
                     </a>

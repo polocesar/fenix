@@ -2,7 +2,10 @@
     <div>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Usuários</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-success shadow-sm"><b><i class="fas fa-plus"></i></b></a>
+            <router-link :to="{ name: 'usuario.form' }" tag="a" class="d-none d-sm-inline-block btn btn-success shadow-sm font-weight-bold">
+                <i class="fas fa-plus"></i>
+            </router-link>
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-success shadow-sm"><b><i class="fas fa-plus"></i></b></a> -->
         </div>
         <div class="row">
             <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">

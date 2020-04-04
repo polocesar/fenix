@@ -127,6 +127,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header pt-3 pb-2 d-flex flex-row align-items-center justify-content-between" style="background-color: white; border-bottom: none;">
+                        <h6 class="m-0 font-weight-bold text-orange text-center">Distribuição dos leitos</h6>
+                    </div>
+                    <div class="card-body">
+                        <pie-chart></pie-chart>
+                    </div>
+                </div>
+            </div>
             <!-- <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -194,11 +204,13 @@
 <script>
 import LineChart from '@/components/charts/LineChart.js'
 import BarChart from '@/components/charts/BarChart.js'
+import PieChart from '@/components/charts/PieChart.js'
 
 export default {
     components: {
         LineChart,
         BarChart,
+        PieChart,
     },
     name: 'Dashboard',
     data () {
