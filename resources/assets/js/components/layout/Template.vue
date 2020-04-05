@@ -6,10 +6,10 @@
             </router-link>
             <div class="collapse navbar-collapse ml-4" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <router-link to="/dashboard" tag="li" class="nav-item">
+                    <router-link :to="{ name: 'dashboard' }" tag="li" class="nav-item">
                         <a class="nav-link">Dashboard</a>
                     </router-link>
-                    <router-link to="/usuario" tag="li" class="nav-item">
+                    <router-link :to="{ name: 'usuario.index' }" tag="li" class="nav-item">
                         <a class="nav-link">Usuários</a>
                     </router-link>
                     <!-- <li class="nav-item">

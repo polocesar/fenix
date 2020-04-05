@@ -19,6 +19,7 @@ export default new Router({
         },
         {
             path: '/',
+            redirect: { name: 'dashboard' },
             component: Template,
             beforeEnter: (to, from, next) => {
                 if (!localStorage.getItem('token')) {
