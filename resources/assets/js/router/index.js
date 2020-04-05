@@ -14,7 +14,7 @@ export default new Router({
     routes: [
         {
             path: '/login',
-            name: 'Login',
+            name: 'login',
             component: Login
         },
         {
@@ -29,7 +29,7 @@ export default new Router({
             children: [
                 {
                     path: 'dashboard',
-                    name: 'Dashboard',
+                    name: 'dashboard',
                     component: Dashboard
                 },
                 {
@@ -39,10 +39,18 @@ export default new Router({
                 },
                 {
                     path: 'usuario/create',
-                    name: 'usuario.form',
+                    name: 'usuario.create',
                     component: UsuarioForm,
                     props: {
                         form: 'create'
+                    }
+                },
+                {
+                    path: 'usuario/:id/update',
+                    name: 'usuario.update',
+                    component: UsuarioForm,
+                    props: {
+                        form: 'update'
                     }
                 }
             ]

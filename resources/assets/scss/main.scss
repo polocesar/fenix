@@ -65,3 +65,17 @@ li.nav-item.router-link-active {
 .fade-leave-active {
     opacity: 0
 }
+
+.toast {
+    border-radius: .45rem !important;
+    font-weight: bold !important;
+    padding: .50rem;
+}
+
+.notices .toast-error {
+    background-color: var(--danger) !important;
+}
+
+.notices .toast-success {
+    background-color: var(--success) !important;
+}

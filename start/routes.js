@@ -21,4 +21,8 @@ Route.group(() => {
     Route.post('login', 'AuthController.login');
 }).prefix('api');
 
+Route.group(() => {
+    Route.resource('user', 'UserController').apiOnly();
+}).prefix('api').middleware(['auth']);
+
 Route.any('*', ({view}) =>  view.render('app'))
