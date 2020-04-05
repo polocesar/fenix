@@ -7,7 +7,6 @@ import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
-import axios from 'axios'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -18,15 +17,24 @@ Vue.use(IconsPlugin)
 Vue.use(VueToast);
 
 //Install Loading Overlay
-Vue.use(Loading, { color: '#faa61c' });
+Vue.use(Loading, { color: '#faa61c', duration: 10000 });
 
 Vue.component('CounterUp', CounterUp);
 
 Vue.config.productionTip = false
+
+//Message bus
+window['Bus'] = new Vue();
+
 
 new Vue({
   el: '#app',
   router,
   components: { App },
   template: '<App/>',
+  mounted () {
+    Bus.$on('error', (error) => {
+      this.$toast.error(error);
+    });
+  }
 })

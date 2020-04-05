@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '@/util/axios'
 
 export default {
     name: 'UsuarioIndex',
@@ -70,13 +70,11 @@ export default {
         try { 
             const { data } = await axios.get('/api/user', {
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                   'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
             });
             this.dados = data;
-        } catch (e) {
-            this.$toast.error('Não foi possível carregar os dados.');
-        }
+        } catch (e) {}
         loading.hide();
     }
 }
