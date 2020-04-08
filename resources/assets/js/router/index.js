@@ -23,7 +23,7 @@ export default new Router({
             component: Template,
             beforeEnter: (to, from, next) => {
                 if (!localStorage.getItem('token')) {
-                    next({ name: 'Login' });
+                    next({ name: 'login' });
                 }
                 next();
             },
