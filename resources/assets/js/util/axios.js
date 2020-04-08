@@ -6,7 +6,15 @@ const instance = axios.create();
 instance.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 instance.interceptors.response.use(
-    response => response,
+    response => {
+        const { status } = response;
+        
+        if (status == 200 && ('message' in response.data)) {
+            Bus.$emit('success', response.data.message);
+        }
+        
+        return Promise.resolve(response);
+    },
     error => {
         const { status } = error.response;
 

@@ -7,6 +7,9 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User');
 
+/** @type {typeof import('@adonisjs/validator/src/Validator')} */
+const { validateAll } = use('Validator');
+
 /**
  * Resourceful controller for interacting with usuarios
  */
@@ -25,18 +28,6 @@ class UserController {
   }
 
   /**
-   * Render a form to be used for creating a new usuario.
-   * GET usuarios/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
    * Create/save a new usuario.
    * POST usuarios
    *
@@ -45,6 +36,29 @@ class UserController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const data = request.all();
+    
+    const rules = {
+      nome: 'required|string',
+      email: 'required|email|unique:users,email',
+      grupo: 'required|string',
+      password: 'required|confirmed|string',
+    };
+
+    const validation = await validateAll(data, rules);
+
+    if (validation.fails()) {
+      return response.status(500).json({
+        message: 'Erro no formulário',
+        errors: validation.messages()
+      });
+    }
+
+    User.create(request.except(['password_confirmation']));
+
+    return response.json({
+      message: 'Usuário criado com sucesso'
+    });
   }
 
   /**
@@ -57,18 +71,6 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing usuario.
-   * GET usuarios/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
   }
 
   /**

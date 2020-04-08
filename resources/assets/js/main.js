@@ -26,6 +26,16 @@ Vue.config.productionTip = false
 //Message bus
 window['Bus'] = new Vue();
 
+// window['route'] = function (name, params) {
+//   let url = '23132';
+//   if (params) {
+//     this.Object.keys(params).forEach((param) => {
+//       url = url.replace(param, params[param]);
+//     });
+//     return url;
+//   }
+//   return url;
+// }
 
 new Vue({
   el: '#app',
@@ -33,8 +43,11 @@ new Vue({
   components: { App },
   template: '<App/>',
   mounted () {
-    Bus.$on('error', (error) => {
-      this.$toast.error(error);
+    Bus.$on('error', (message) => {
+      this.$toast.error(message);
+    });
+    Bus.$on('success', (message) => {
+      this.$toast.success(message);
     });
   }
 })

@@ -45,6 +45,11 @@
                                         <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
+                                <tr v-show="dados.length == 0">
+                                    <td colspan="3" class="text-center">
+                                        Nenhum dado encontrado
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
