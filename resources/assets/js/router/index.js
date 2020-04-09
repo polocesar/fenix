@@ -5,7 +5,8 @@ import Template from '@/components/layout/Template'
 import Dashboard from '@/pages/Dashboard'
 
 import UsuarioIndex from '@/pages/usuarios/Index'
-import UsuarioForm from '@/pages/usuarios/Form'
+import UsuarioCreate from '@/pages/usuarios/Create'
+import UsuarioUpdate from '@/pages/usuarios/Update'
 
 Vue.use(Router)
 
@@ -41,17 +42,16 @@ export default new Router({
                 {
                     path: 'usuario/create',
                     name: 'usuario.create',
-                    component: UsuarioForm,
-                    props: {
-                        form: 'create'
-                    }
+                    component: UsuarioCreate,
                 },
                 {
                     path: 'usuario/:id/update',
                     name: 'usuario.update',
-                    component: UsuarioForm,
-                    props: {
-                        form: 'update'
+                    component: UsuarioUpdate,
+                    props: (route) => {
+                        return {
+                            id: route.params.id
+                        };
                     }
                 }
             ]

@@ -49,7 +49,7 @@ class UserController {
 
     if (validation.fails()) {
       return response.status(500).json({
-        message: 'Erro no formulário',
+        message: 'Erro no formulário.',
         errors: validation.messages()
       });
     }
@@ -57,7 +57,7 @@ class UserController {
     User.create(request.except(['password_confirmation']));
 
     return response.json({
-      message: 'Usuário criado com sucesso'
+      message: 'Usuário criado com sucesso.'
     });
   }
 
@@ -71,6 +71,13 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    try {
+      return await User.findOrFail(params.id);
+    } catch (e) {
+      return response.status(500).json({
+        message: 'Não foi possível encontrar o usuário.'
+      });
+    }
   }
 
   /**
@@ -82,6 +89,40 @@ class UserController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    try {
+      const user = await User.find(params.id);
+
+      const data = request.all();
+    
+      const rules = {
+        nome: 'required|string',
+        email: 'required|email',
+        grupo: 'required|string',
+        password: 'confirmed|string',
+      };
+
+      const validation = await validateAll(data, rules);
+
+      if (validation.fails()) {
+        return response.status(500).json({
+          message: 'Erro no formulário.',
+          errors: validation.messages()
+        });
+      }
+
+      user.merge(request.except(['password_confirmation']));
+
+      await user.save();
+
+      return response.json({
+        message: 'Usuário atualizado com sucesso.'
+      });
+    } catch(e) {
+      return response.status(500).json({
+        message: 'Não foi possível atualizar o usuário.',
+      });
+    }
+    
   }
 
   /**
@@ -93,6 +134,17 @@ class UserController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    try {
+      const user = await User.find(params.id);
+      await user.delete();
+      return response.json({
+        message: 'Usuário removido com sucesso.'
+      });
+    } catch (e) {
+      return response.status(500).json({
+        message: e.message
+      });
+    }
   }
 }
 

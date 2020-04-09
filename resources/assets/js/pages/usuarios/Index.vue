@@ -32,6 +32,7 @@
                                 <tr>
                                     <th scope="col" width="100">ID</th>
                                     <th scope="col">Nome</th>
+                                    <th scope="col">E-mail</th>
                                     <th scope="col" width="200">Ações</th>
                                 </tr>
                             </thead>
@@ -39,10 +40,13 @@
                                 <tr v-for="user in dados" v-bind:key="user.id">
                                     <td>{{user.id}}</td>
                                     <td>{{user.nome}}</td>
+                                    <td>{{user.email}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning btn-sm"><i class="fas fa-eye"></i></button>
-                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <!-- <button type="button" class="btn btn-warning btn-sm"><i class="fas fa-eye"></i></button> -->
+                                        <router-link :to="{ name: 'usuario.update', params: { id: user.id } }" tag="button" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </router-link>
+                                        <button type="button" class="btn btn-danger btn-sm" @click="destroy(user.id)"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                                 <tr v-show="dados.length == 0">
@@ -61,6 +65,7 @@
 
 <script>
 import axios from '@/util/axios'
+import Swal from 'sweetalert2'
 
 export default {
     name: 'UsuarioIndex',
@@ -71,16 +76,52 @@ export default {
         }
     },
     async mounted () {
-        const loading = this.$loading.show();
-        try { 
-            const { data } = await axios.get('/api/user', {
-                headers: {
-                   'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
-            });
-            this.dados = data;
-        } catch (e) {}
-        loading.hide();
+        await this.load();
+    },
+    methods: {
+        async load () {
+            const loading = this.$loading.show();
+            try { 
+                const { data } = await axios.get('/api/user', {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+                this.dados = data;
+            } catch (e) {}
+            loading.hide();
+        },
+        async destroy (id) {
+            try {
+                Swal.fire({
+                    title: 'Você deseja remover este usuário?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: 'var(--success)',
+                    cancelButtonColor: 'var(--danger)',
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Não',
+                    reverseButtons: true,
+                }).then(async (result) => {
+                    if (result.value) {
+                        const loading = this.$loading.show();
+                        await axios.delete(`/api/user/${id}`, {
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+                        let index = null;
+                        for(let i in this.dados) {
+                            if (this.dados[i].id == id) {
+                                index = i;
+                            }
+                        }
+                        this.dados.splice(index,1);
+                        loading.hide();
+                    }
+                })
+            } catch(e) {}
+        }
     }
 }
 </script>

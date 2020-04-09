@@ -4,7 +4,7 @@
             <div class="card shadow mb-4">
                 <form @submit.prevent="onSubmit()">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-default">{{form == 'create' ? 'Cadsatro' : 'Atualização'}} de usuário</h6>
+                        <h6 class="m-0 font-weight-bold text-default">Cadastro de usuário</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -54,8 +54,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="confirm-password">Confirmar Senha *</label>
-                                    <input type="password" v-model="formulario.password_confirmation" class="form-control" :class="{'is-invalid': errors.password_confirmation}" id="confirm-password" required>
+                                    <label for="password_confirmation">Confirmar Senha *</label>
+                                    <input type="password" v-model="formulario.password_confirmation" class="form-control" :class="{'is-invalid': errors.password_confirmation}" id="password_confirmation" required>
                                     <div class="invalid-feedback" v-show="errors.password_confirmation">
                                         {{errors.password_confirmation}}
                                     </div>
@@ -65,10 +65,10 @@
                     </div>
                     <div class="card-footer">
                         <div class="col-12">
-                            <router-link type="button" :to="{ name: 'usuario.index' }" tag="button" class="btn btn-warning font-weight-bold" :class="[form == 'create' ? 'btn-warning' : 'btn-danger']">
-                                {{form == 'create' ? 'Voltar' : 'Cancelar'}}
+                            <router-link type="button" :to="{ name: 'usuario.index' }" tag="button" class="btn btn-warning font-weight-bold">
+                                Voltar
                             </router-link>
-                            <button type="submit" class="btn float-right font-weight-bold" :class="[form == 'create' ? 'btn-success' : 'btn-warning']">{{ form == 'create' ? 'Cadastrar' : 'Atualizar'}}</button>
+                            <button type="submit" class="btn float-right font-weight-bold btn-success">Cadastrar</button>
                         </div>
                     </div>
                 </form>
@@ -81,14 +81,8 @@
 import axios from '@/util/axios';
 
 export default {
-    name: 'UsuarioForm',
-    props: {
-        form: {
-            required: true,
-        }
-    },
+    name: 'UsuarioCreate',
     mounted () {
-        console.log(this);
     },
     data () {
         return {
