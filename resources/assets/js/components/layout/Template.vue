@@ -65,7 +65,7 @@
         <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright © <a href="https://www.laura-br.com/" target="_blank">Laura</a> - Developed by <a href="http://fabricas.cesar.edu.br/polo/" target="_blank">Lauros</a> 2020</span>
+            <span>Copyright © <a href="https://www.laura-br.com/" target="_blank">Laura</a> - Developed by <a href="http://fabricas.cesar.edu.br/polo/" target="_blank">Polo</a> 2020</span>
           </div>
         </div>
       </footer>

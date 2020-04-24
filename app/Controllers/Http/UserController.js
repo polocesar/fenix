@@ -49,7 +49,7 @@ class UserController {
 
     if (validation.fails()) {
       return response.status(500).json({
-        message: 'Erro no formulário.',
+        message: 'Erro no formulário',
         errors: validation.messages()
       });
     }
@@ -57,7 +57,7 @@ class UserController {
     User.create(request.except(['password_confirmation']));
 
     return response.json({
-      message: 'Usuário criado com sucesso.'
+      message: 'Usuário criado com sucesso'
     });
   }
 
@@ -75,7 +75,7 @@ class UserController {
       return await User.findOrFail(params.id);
     } catch (e) {
       return response.status(500).json({
-        message: 'Não foi possível encontrar o usuário.'
+        message: 'Não foi possível encontrar o usuário'
       });
     }
   }
@@ -105,7 +105,7 @@ class UserController {
 
       if (validation.fails()) {
         return response.status(500).json({
-          message: 'Erro no formulário.',
+          message: 'Erro no formulário',
           errors: validation.messages()
         });
       }
@@ -115,11 +115,11 @@ class UserController {
       await user.save();
 
       return response.json({
-        message: 'Usuário atualizado com sucesso.'
+        message: 'Usuário atualizado com sucesso'
       });
     } catch(e) {
       return response.status(500).json({
-        message: 'Não foi possível atualizar o usuário.',
+        message: 'Não foi possível atualizar o usuário',
       });
     }
     
@@ -138,7 +138,7 @@ class UserController {
       const user = await User.find(params.id);
       await user.delete();
       return response.json({
-        message: 'Usuário removido com sucesso.'
+        message: 'Usuário removido com sucesso'
       });
     } catch (e) {
       return response.status(500).json({

@@ -5,13 +5,13 @@
             <h1 class="h3 mb-0 text-gray-800">Indicadores</h1>
         </div>
         <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-orange text-uppercase mb-1">Taxa de ocupação</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="63"></CounterUp>%</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="taxa.ocupacao"></CounterUp>%</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-procedures fa-2x text-gray-300 mt-3"></i>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-4">
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Estatísticas</h1>
@@ -76,7 +76,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Leitos livres</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="34"></CounterUp></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="leitos.livres"></CounterUp></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-door-open fa-2x text-gray-300 mt-3"></i>
@@ -86,12 +86,12 @@
                 </div>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
-                <div class="card border-left-danger shadow h-100">
+                <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Leitos Ocupados</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="27"></CounterUp></div>
+                                <div class="text-xs font-weight-bold text-orange text-uppercase mb-1">Leitos Ocupados</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="leitos.ocupados"></CounterUp></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-procedures fa-2x text-gray-300 mt-3"></i>
@@ -106,10 +106,25 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Leitos em manutenção</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="8"></CounterUp></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="leitos.manutencao"></CounterUp></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-tools fa-2x text-gray-300 mt-3"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
+                <div class="card border-left-danger shadow h-100">
+                    <div class="card-body pt-2">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Leitos interditados</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="leitos.interditados"></CounterUp></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-ban fa-2x text-gray-300 mt-3"></i>
                             </div>
                         </div>
                     </div>
@@ -205,6 +220,7 @@
 import LineChart from '@/components/charts/LineChart.js'
 import BarChart from '@/components/charts/BarChart.js'
 import PieChart from '@/components/charts/PieChart.js'
+import axios from '@/util/axios'
 
 export default {
     components: {
@@ -213,8 +229,40 @@ export default {
         PieChart,
     },
     name: 'Dashboard',
+    async mounted () {
+        const loading = this.$loading.show();
+        try {
+            const { data: {
+                leitos
+            } } = await axios.get('/api/dashboard', {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            this.leitos.livres = parseInt(leitos.livres);
+            this.leitos.ocupados = parseInt(leitos.ocupados);
+            this.leitos.manutencao = parseInt(leitos.manutencao);
+            this.leitos.interditados = parseInt(leitos.interditados);
+
+            this.taxa.ocupacao = Math.ceil((this.leitos.ocupados/leitos.total)*100);
+
+        } catch (e) {
+
+        }
+        loading.hide();
+    },
     data () {
         return {
+            taxa: {
+                ocupacao: 0
+            },
+            leitos: {
+                livres: 0,
+                ocupados: 0,
+                manutencao: 0,
+                interditados: 0,
+            },
             datacollection: {
                 labels: [Math.floor(Math.random() * (50 - 5 + 1)) + 5, Math.floor(Math.random() * (50 - 5 + 1)) + 5],
                 datasets: [
