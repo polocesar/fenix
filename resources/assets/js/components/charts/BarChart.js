@@ -1,6 +1,7 @@
 import { Bar } from 'vue-chartjs'
 
 export default {
+  props: ['data', 'config'],
   extends: Bar,
   data: () => ({
     chartdata: {
@@ -20,6 +21,6 @@ export default {
   }),
 
   mounted () {
-    this.renderChart(this.chartdata, this.options)
+    this.renderChart(this.data, this.config)
   }
 }

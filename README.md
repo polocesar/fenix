@@ -2,7 +2,7 @@
 Projedo de dashboard do laura.
 
 ## Sobre
-Está é um aplicação construída sobre o [AdonisJs](https://adonisjs.com/docs/4.1/installation)
+Esta é um aplicação construída sobre o [AdonisJs](https://adonisjs.com/docs/4.1/installation)
 que é um framework em Node para back-end e como tecnologia para front-end estamos utilizando 
 o [Vue.js](https://vuejs.org/).
 
