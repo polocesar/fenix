@@ -135,23 +135,23 @@
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="card shadow mb-4">
                     <div class="card-header pt-3 pb-2 d-flex flex-row align-items-center justify-content-between" style="background-color: white; border-bottom: none;">
-                        <h6 class="m-0 font-weight-bold text-orange text-center">Leitos ocupados por plano</h6>
+                        <h6 class="m-0 font-weight-bold text-orange text-center">Leitos ocupados por plano de saúde</h6>
                     </div>
                     <div class="card-body">
-                        <pie-chart :data="graficoLeitosPorConvenio" :config="options" v-if="mostrar"></pie-chart>
+                        <div id="opps-chart"></div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
+            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="card shadow mb-4">
                     <div class="card-header pt-3 pb-2 d-flex flex-row align-items-center justify-content-between" style="background-color: white; border-bottom: none;">
-                        <h6 class="m-0 font-weight-bold text-orange text-center">Internações mensais</h6>
+                        <h6 class="m-0 font-weight-bold text-orange text-center">Problemas mais recorrentes</h6>
                     </div>
-                    <div class="card-body">
-                        <pie-chart :data="graficoDustribuicaoDeCids" :config="options" v-if="mostrarCids"></pie-chart>
+                    <div class="card-body p-0 mr-4">
+                        <div id="cids-chart"></div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>    
 </template>
@@ -161,7 +161,8 @@ import LineChart from '@/components/charts/LineChart.js'
 import BarChart from '@/components/charts/BarChart.js'
 import PieChart from '@/components/charts/PieChart.js'
 import axios from '@/util/axios'
-
+import ApexCharts from 'apexcharts'
+//https://yugasun.github.io/x-chart/?ref=madewithvuejs.com#/
 export default {
     components: {
         LineChart,
@@ -191,11 +192,12 @@ export default {
             this.taxa.desocupacao = Math.ceil((this.leitos.livres/leitos.total)*100);
 
             this.leitos.por_convenio = leitos.por_convenio;
-            this.cids = leitos.por_convenio;
+            this.cids = cids;
 
         } catch (e) {
 
         }
+
         loading.hide();
     },
     data () {
@@ -212,72 +214,98 @@ export default {
                 manutencao: 0,
                 interditados: 0,
             },
-            mostrar: false,
-            graficoLeitosPorConvenio: {
-                labels: [],
-                datasets: [
-                    {
-                        backgroundColor: ['#1cc88a', '#e74a3b'],
-                        data: []
-                    }
-                ]
-            },
-            mostrarCids: true,
             cids: [],
-            graficoDustribuicaoDeCids: {
-                labels: [],
-                datasets: [
-                    {
-                        backgroundColor: ['#1cc88a', '#e74a3b'],
-                        data: []
-                    }
-                ]
+            grafico: {
+                convenio: {
+                    chart: {
+                        type: 'pie'
+                    },
+                    colors: ['#faa61c', '#E09419'],
+                    series: [],
+                    labels: []
+                }
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            },
-            datacollection: {
-                labels: [Math.floor(Math.random() * (50 - 5 + 1)) + 5, Math.floor(Math.random() * (50 - 5 + 1)) + 5],
-                datasets: [
-                    {
-                        label: 'Data One',
-                        backgroundColor: '#faa61c',
-                        data: [Math.floor(Math.random() * (50 - 5 + 1)) + 5, Math.floor(Math.random() * (50 - 5 + 1)) + 5]
-                    }, 
-                    {
-                        label: 'Data One',
-                        backgroundColor: '#E09419',
-                        data: [Math.floor(Math.random() * (50 - 5 + 1)) + 5, Math.floor(Math.random() * (50 - 5 + 1)) + 5]
-                    }
-                ]
-            }
         }
     },
 
     watch: {
         'leitos.por_convenio': function () {
-            this.graficoLeitosPorConvenio.labels = this.leitos.por_convenio.map((row) => {
+            this.grafico.convenio.labels = this.leitos.por_convenio.map((row) => {
                 return row.nome_plano;
             });
 
-            this.graficoLeitosPorConvenio.datasets[0].data = this.leitos.por_convenio.map((row) => {
-                return row.quantidade;
+            this.grafico.convenio.series = this.leitos.por_convenio.map((row) => {
+                return parseFloat(row.quantidade);
             });
-
-            this.mostrar = true;
+            let chart = new ApexCharts(document.querySelector("#opps-chart"), this.grafico.convenio);
+            chart.render();
         },
-        'cids': function () {
-            console.log(this.cids);
-            this.graficoDustribuicaoDeCids.labels = this.cids.map((cid) => {
-                return cid.nome_cid;
+        'cids': function() {
+            const chart = new ApexCharts(document.querySelector("#cids-chart"), {
+                series: [{
+                    data: this.cids.map((cid) => parseFloat(cid.quantidade))
+                }],
+                chart: {
+                    type: 'bar',
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                colors: ['#faa61c', '#E09419'],
+                plotOptions: {
+                    bar: {
+                        barHeight: '100%',
+                        distributed: true,
+                        horizontal: true,
+                        dataLabels: {
+                            position: 'bottom'
+                        },
+                    }
+                },
+                stroke: {
+                width: 1,
+                    colors: ['#fff']
+                },
+                dataLabels: {
+                    enabled: true,
+                    textAnchor: 'start',
+                    style: {
+                        colors: ['#f3f3f3']
+                    },
+                    formatter: function (val, opt) {
+                        return opt.w.globals.labels[opt.dataPointIndex] //+ ":  " + val
+                    },
+                    offsetX: 0,
+                    dropShadow: {
+                        enabled: true
+                    }
+                },
+                tooltip: {
+                    theme: 'dark',
+                    x: {
+                        show: false
+                    },
+                    y: {
+                        title: {
+                            formatter: function () {
+                                return ''
+                            }
+                        }
+                    }
+                },
+                xaxis: {
+                    categories: this.cids.map((cid) => cid.nome_cid),
+                },
+                yaxis: {
+                    labels: {
+                        show: false
+                    }
+                },
             });
-
-            this.graficoDustribuicaoDeCids.datasets[0].data = this.cids.map((cid) => {
-                return cid.quantidade;
-            });
-
-            this.mostrarCids = true;
+            chart.render();
         }
     }
 }

@@ -36,7 +36,10 @@ class DashboardController {
         const sql3 = `
         select cid, nome_cid, count(*) as quantidade 
           from pacientes
-        group by cid, nome_cid`;
+          where nome_cid is not null
+        group by cid, nome_cid
+        order by quantidade desc
+        limit 10`;
         return {
             cids: (await Database.raw(sql3)).rows,
             leitos: {
