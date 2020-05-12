@@ -7,44 +7,49 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Leito = use('App/Models/Leito');
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Paciente = use('App/Models/Paciente');
+
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const PacienteLeito = use('App/Models/PacienteLeito');
+
 const Database = use('Database');
 
 class DashboardController {
     async index ({ request, response, view }) {
-        /*
-         select median(dias) from (
-            select DATE_PART('day', data_desocupacao::timestamp - data_ocupacao::timestamp) as dias, * from paciente_leito
-            where data_desocupacao IS NOT null and data_ocupacao IS NOT null and DATE_PART('day', data_desocupacao::timestamp - data_ocupacao::timestamp) > 0) as foo
-         */
-        const sql = `SELECT avg(DATE_PART('day', data_desocupacao::timestamp - data_ocupacao::timestamp)) as permanencia_media
-                     FROM paciente_leito
-                     WHERE data_desocupacao IS NOT NULL AND data_ocupacao IS NOT NULL AND DATE_PART('day', data_desocupacao::timestamp - data_ocupacao::timestamp) > 0`;
-        const sql2 = `
-        select b.nome_plano, count(*) as quantidade
-        from (
-            select distinct paciente_convenio.nome_plano, pacientes.cod_atandimento 
-                      from pacientes
-                inner join paciente_convenio 
-                        on pacientes.cod_atandimento = paciente_convenio.cod_atendimento
-                inner join paciente_leito 
-                        on pacientes.cod_atandimento = paciente_leito.cod_atendimento
-                inner join leitos 
-                        on paciente_leito.cod_leito = leitos.cod_leito 
-                       and leitos.situacao = 'Ocupado por paciente'
-        ) as b
-        group by b.nome_plano`;
-        const sql3 = `
-        select cid, nome_cid, count(*) as quantidade 
-          from pacientes
-          where nome_cid is not null
-        group by cid, nome_cid
-        order by quantidade desc
-        limit 10`;
         return {
-            cids: (await Database.raw(sql3)).rows,
+            cids: await Paciente.query().select('cid', 'nome_cid', Database.raw('count(*) as quantidade'))
+                                        .whereNotNull('nome_cid')
+                                        .groupByRaw('cid, nome_cid')
+                                        .orderBy('quantidade', 'desc')
+                                        .limit(10)
+                                        .fetch(),
+            pacientes_alta_atrasada: await Paciente.query().whereNotNull('data_prevista_alta')
+                                                           .whereNull('data_alta_medica')
+                                                           .whereNull('data_alta_adm')
+                                                           .whereRaw('data_prevista_alta < now()')
+                                                           .getCount(),
             leitos: {
-                por_convenio: (await Database.raw(sql2)).rows,
-                permanencia_media: (await Database.raw(sql)).rows[0].permanencia_media,
+                por_convenio: (await Database.raw(
+                    Database.query()
+                            .select('t.nome_plano', Database.raw('count(*) as quantidade'))
+                            .from(function() {
+                                this.as('t').distinct('paciente_convenio.nome_plano', 'pacientes.cod_atandimento')
+                                    .from('pacientes')
+                                    .innerJoin('paciente_convenio', 'pacientes.cod_atandimento', 'paciente_convenio.cod_atendimento')
+                                    .innerJoin('paciente_leito', 'pacientes.cod_atandimento', 'paciente_leito.cod_atendimento')
+                                    .innerJoin('leitos', 'paciente_leito.cod_leito', 'leitos.cod_leito')
+                                    .where('leitos.situacao', 'Ocupado por paciente');
+                            })
+                            .groupBy('t.nome_plano')
+                            .toString())
+                ).rows,
+                permanencia_media: (await PacienteLeito.query()
+                                                        .select(Database.raw("avg(DATE_PART('day', data_desocupacao::timestamp - data_ocupacao::timestamp)) as permanencia_media"))
+                                                        .whereNotNull('data_desocupacao')
+                                                        .whereNotNull('data_ocupacao')
+                                                        .whereRaw('DATE_PART(\'day\', data_desocupacao::timestamp - data_ocupacao::timestamp) > 0')
+                                                        .fetch()).rows[0].permanencia_media,
                 total: await Leito.query().getCount(),
                 livres: await Leito.query().where('situacao', 'Vago').getCount(),
                 ocupados: await Leito.query().where('situacao', 'Ocupado por paciente').getCount(),
