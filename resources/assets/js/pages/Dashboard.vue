@@ -5,7 +5,7 @@
             <h1 class="h3 mb-0 text-gray-800">Indicadores</h1>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-orange shadow h-100">
                     <div class="card-body pt-2">
                         <div class="row no-gutters align-items-center">
@@ -277,7 +277,7 @@ export default {
                     },
                 },
                 legend: {
-                    show: false
+                    show: false,
                 },
                 colors: ['#faa61c', '#E09419'],
                 plotOptions: {
