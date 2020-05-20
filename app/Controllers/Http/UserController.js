@@ -24,7 +24,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return await User.all();
+    return await User.query().orderBy('id').fetch();
   }
 
   /**
