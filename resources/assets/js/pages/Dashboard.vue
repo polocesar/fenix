@@ -45,6 +45,9 @@
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <internacoes-ano></internacoes-ano>
             </div>
+            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
+                <especialidades-ano></especialidades-ano>
+            </div>
         </div>
     </div>    
 </template>
@@ -64,6 +67,7 @@ import LeitosInterditados from '@/components/dashboard/indicador/LeitosInterdita
 import LeitosOcupadosPlanoSaude from '@/components/dashboard/grafico/LeitosOcupadosPlanoSaude'
 import EnfermidadesRecorrentes from '@/components/dashboard/grafico/EnfermidadesRecorrentes'
 import InternacoesAno from '@/components/dashboard/grafico/InternacoesAno'
+import EspecialidadesAno from '@/components/dashboard/grafico/EspecialidadesAno'
 
 import axios from '@/util/axios'
 import ApexCharts from 'apexcharts'
@@ -80,11 +84,12 @@ export default {
         'leitos-interditados': LeitosInterditados,
         'leitos-ocupados-plano-saude': LeitosOcupadosPlanoSaude,
         'enfermidades-recorrentes': EnfermidadesRecorrentes,
-        'internacoes-ano': InternacoesAno
+        'internacoes-ano': InternacoesAno,
+        'especialidades-ano': EspecialidadesAno
     },
     name: 'Dashboard',
     async mounted () {
-        // const loading = this.$loading.show();
+        //const loading = this.$loading.show();
 
         // loading.hide();
     },

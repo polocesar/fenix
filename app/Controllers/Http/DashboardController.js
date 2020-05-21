@@ -61,6 +61,8 @@ class DashboardController {
 
     async index ({ request, response, view, params }) {
         let total, ocupados, livres;
+        let { q } = request.all();
+        console.log(q);
         switch (params.filtro) {
             case 'taxa_ocupacao':
                 total = await Leito.query().getCount();
@@ -134,6 +136,23 @@ class DashboardController {
                                         .limit(10)
                                         .fetch()
                 }
+            case 'internacao_ano':
+                return {
+                    dados: await Paciente.query()
+                                        .select(Database.raw(`DATE_PART('month', data_entrada::timestamp) as mes, count(*) as quantidade`))
+                                        .whereRaw(`DATE_PART('year', data_entrada::timestamp) = '${q}'`)
+                                        .groupByRaw(`DATE_PART('month', data_entrada::timestamp)`)
+                                        .fetch()
+                }
+            case 'especialidades_ano':
+                return {
+                    dados: await Paciente.query()
+                                        .select(Database.raw(`distinct especialidade, count(*)`))
+                                        .whereRaw(`DATE_PART('year', data_entrada::timestamp) = '${q}'`)
+                                        .groupBy('especialidade')
+                                        .orderByRaw(`count(*) desc`)
+                                        .fetch()
+                }
         }
     } 
 }
@@ -141,6 +160,10 @@ class DashboardController {
 module.exports = DashboardController
 
 /*
+select distinct especialidade, count(*)
+from pacientes
+where DATE_PART('year', data_entrada::timestamp) = '2020'
+group by especialidade
 
 select DATE_PART('month', data_entrada::timestamp) as mes, count(*) as quantidade 
 from pacientes
