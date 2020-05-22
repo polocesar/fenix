@@ -40,14 +40,18 @@
                 <leitos-ocupados-plano-saude></leitos-ocupados-plano-saude>
             </div>
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
-                <enfermidades-recorrentes></enfermidades-recorrentes>
+                <estado-leitos-ala></estado-leitos-ala>
             </div>
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
-                <internacoes-ano></internacoes-ano>
+                <enfermidades-recorrentes></enfermidades-recorrentes>
             </div>
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <especialidades-ano></especialidades-ano>
             </div>
+            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
+                <internacoes-ano></internacoes-ano>
+            </div>
+            
         </div>
     </div>    
 </template>
@@ -68,6 +72,7 @@ import LeitosOcupadosPlanoSaude from '@/components/dashboard/grafico/LeitosOcupa
 import EnfermidadesRecorrentes from '@/components/dashboard/grafico/EnfermidadesRecorrentes'
 import InternacoesAno from '@/components/dashboard/grafico/InternacoesAno'
 import EspecialidadesAno from '@/components/dashboard/grafico/EspecialidadesAno'
+import EstadoLeitosAla from '@/components/dashboard/grafico/EstadoLeitosAla'
 
 import axios from '@/util/axios'
 import ApexCharts from 'apexcharts'
@@ -85,7 +90,8 @@ export default {
         'leitos-ocupados-plano-saude': LeitosOcupadosPlanoSaude,
         'enfermidades-recorrentes': EnfermidadesRecorrentes,
         'internacoes-ano': InternacoesAno,
-        'especialidades-ano': EspecialidadesAno
+        'especialidades-ano': EspecialidadesAno,
+        'estado-leitos-ala': EstadoLeitosAla
     },
     name: 'Dashboard',
     async mounted () {

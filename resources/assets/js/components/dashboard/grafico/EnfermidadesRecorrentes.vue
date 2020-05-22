@@ -28,6 +28,7 @@ export default {
                 }],
                 chart: {
                     type: 'bar',
+                    height: '597px',
                     toolbar: {
                         show: false,
                     },

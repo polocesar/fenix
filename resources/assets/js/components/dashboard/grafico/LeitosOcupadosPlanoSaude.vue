@@ -24,7 +24,8 @@ export default {
 
             let chart = new ApexCharts(this.$el.querySelector("#chart"), {
                 chart: {
-                    type: 'pie'
+                    type: 'pie',
+                    height: '562px',
                 },
                 colors: ['#faa61c', '#E09419'],
                 series: dados.map(({quantidade}) => parseFloat(quantidade)),

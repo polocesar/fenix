@@ -60,9 +60,8 @@ class DashboardController {
     // }
 
     async index ({ request, response, view, params }) {
-        let total, ocupados, livres;
+        let total, ocupados, livres, alas;
         let { q } = request.all();
-        console.log(q);
         switch (params.filtro) {
             case 'taxa_ocupacao':
                 total = await Leito.query().getCount();
@@ -152,6 +151,20 @@ class DashboardController {
                                         .groupBy('especialidade')
                                         .orderByRaw(`count(*) desc`)
                                         .fetch()
+                }
+            case 'estado_leitos_ala':
+                alas = await Leito.query().distinct('ala').fetch();
+                if (!q) {
+                    q = alas.first().ala;
+                }
+                return {
+                    alas,
+                    leitos: {
+                        livres: await Leito.query().where('situacao', 'Vago').where('ala', q).getCount(),
+                        ocupados: await Leito.query().where('situacao', 'Ocupado por paciente').where('ala', q).getCount(),
+                        manutencao: await Leito.query().where('situacao', 'Manutenção').where('ala', q).getCount(),
+                        interditados: await Leito.query().whereIn('situacao', ['Interdição', 'Em Limpeza', 'Interditado por Infecção', 'Interditado Temporariamente']).where('ala', q).getCount()
+                    }
                 }
         }
     } 

@@ -2,7 +2,9 @@
     <div class="card shadow mb-4">
         <div class="card-header pt-3 pb-2 d-flex flex-row align-items-center justify-content-between" style="background-color: white; border-bottom: none;">
             <h6 class="m-0 font-weight-bold text-orange text-center">Internações por ano</h6>
-            <select class="form-control col-xl-2" v-model="q">
+        </div>
+        <div class="card-header pt-3 pb-2 d-flex flex-row align-items-center" style="background-color: white; border-bottom: none;">
+            <select class="form-control col-xl-3 col-lg-3 col-md-6 col-sm-12" v-model="q">
                 <option value="2020" selected>2020</option>
                 <option value="2019">2019</option>
             </select>
