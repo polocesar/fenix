@@ -45,7 +45,13 @@ class UserController {
       password: 'required|confirmed|string',
     };
 
-    const validation = await validateAll(data, rules);
+    const validation = await validateAll(data, rules, {
+      'required': 'O campo {{field}} é obrigatório.',
+      'string': 'O campo {{field}} deve ser um texto.',
+      'email': 'O campo {{field}} deve ser um e-mail.',
+      'confirmed': 'As senhas não confirmam.',
+      'unique': 'Já existe uma conta para o e-mail informado.'
+    });
 
     if (validation.fails()) {
       return response.status(500).json({
@@ -98,10 +104,16 @@ class UserController {
         nome: 'required|string',
         email: 'required|email',
         grupo: 'required|string',
-        password: 'confirmed|string',
+        password: 'required_if:password_confirmation|confirmed|string',
       };
 
-      const validation = await validateAll(data, rules);
+      const validation = await validateAll(data, rules, {
+        'required_if': 'O campo {{field}} não está preenchido.',
+        'required': 'O campo {{field}} é obrigatório.',
+        'string': 'O campo {{field}} deve ser um texto.',
+        'email': 'O campo {{field}} deve ser um e-mail.',
+        'confirmed': 'As senhas não confirmam.'
+      });
 
       if (validation.fails()) {
         return response.status(500).json({
