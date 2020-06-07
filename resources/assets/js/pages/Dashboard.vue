@@ -36,21 +36,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
+            <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+                <internacoes-ano></internacoes-ano>
+            </div>
+            <!-- <div class="col-xs-6 col-lg-12 col-md-12 col-sm-12">
                 <leitos-ocupados-plano-saude></leitos-ocupados-plano-saude>
-            </div>
-            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
+            </div> -->
+            <!-- <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <estado-leitos-ala></estado-leitos-ala>
-            </div>
+            </div> -->
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <enfermidades-recorrentes></enfermidades-recorrentes>
             </div>
             <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
                 <especialidades-ano></especialidades-ano>
             </div>
-            <div class="col-xs-6 col-lg-6 col-md-12 col-sm-12">
-                <internacoes-ano></internacoes-ano>
-            </div>
+            
             
         </div>
     </div>    

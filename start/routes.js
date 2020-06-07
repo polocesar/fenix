@@ -25,6 +25,7 @@ Route.group(() => {
     Route.resource('user', 'UserController').apiOnly();
     // Route.get('dashboard', 'DashboardController.index');
     Route.get('dashboard/:filtro', 'DashboardController.index');
+    Route.get('alas', 'AlasController.index');
 }).prefix('api').middleware(['auth']);
 
 Route.any('*', ({view}) =>  view.render('app'))

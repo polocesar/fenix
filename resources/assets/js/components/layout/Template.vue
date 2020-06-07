@@ -9,6 +9,9 @@
                     <router-link :to="{ name: 'dashboard' }" tag="li" class="nav-item">
                         <a class="nav-link">Dashboard</a>
                     </router-link>
+                    <router-link :to="{ name: 'alas' }" tag="li" class="nav-item">
+                        <a class="nav-link">Alas</a>
+                    </router-link>
                     <router-link :to="{ name: 'usuario.index' }" tag="li" class="nav-item">
                         <a class="nav-link">Usuários</a>
                     </router-link>

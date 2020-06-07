@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Template from '@/components/layout/Template'
 import Dashboard from '@/pages/Dashboard'
+import Alas from '@/pages/Alas'
 
 import UsuarioIndex from '@/pages/usuarios/Index'
 import UsuarioCreate from '@/pages/usuarios/Create'
@@ -33,6 +34,11 @@ export default new Router({
                     path: 'dashboard',
                     name: 'dashboard',
                     component: Dashboard
+                },
+                {
+                    path: 'alas',
+                    name: 'alas',
+                    component: Alas
                 },
                 {
                     path: 'usuario',
