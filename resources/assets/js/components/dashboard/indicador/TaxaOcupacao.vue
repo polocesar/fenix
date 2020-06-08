@@ -1,13 +1,13 @@
 <template>
   <div class="card border-left-orange shadow h-100">
-        <div class="card-body pt-2">
+        <div class="card-body pt-2 bg-orange">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-orange text-uppercase mb-1">Taxa de ocupação</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800 mt-2"><CounterUp :value="taxa"></CounterUp>%</div>
+                    <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Taxa de ocupação</div>
+                    <div class="h5 mb-0 font-weight-bold text-white mt-2"><CounterUp :value="taxa"></CounterUp>%</div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-procedures fa-2x text-gray-300 mt-3"></i>
+                    <i class="fas fa-procedures fa-2x text-white mt-3"></i>
                 </div>
             </div>
         </div>

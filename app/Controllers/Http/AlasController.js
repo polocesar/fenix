@@ -41,7 +41,15 @@ class AlasController {
                                             .whereNull('data_alta_medica')
                                             .whereNull('data_alta_adm')
                                             .whereRaw('data_prevista_alta < now()')
-                                            .getCount()
+                                            .getCount(),
+            permanencia_media: Math.ceil((await PacienteLeito.query()
+                                    .select(Database.raw("avg(DATE_PART('day', data_desocupacao::timestamp - data_ocupacao::timestamp)) as permanencia_media"))
+                                    .innerJoin('leitos', 'leitos.cod_leito', 'paciente_leito.cod_leito')
+                                    .where('leitos.ala', q)
+                                    .whereNotNull('data_desocupacao')
+                                    .whereNotNull('data_ocupacao')
+                                    .whereRaw('DATE_PART(\'day\', data_desocupacao::timestamp - data_ocupacao::timestamp) > 0')
+                                    .fetch()).rows[0].permanencia_media)
         }
     }
 
